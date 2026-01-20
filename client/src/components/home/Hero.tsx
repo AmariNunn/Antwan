@@ -89,7 +89,7 @@ export function Hero() {
               />
               
               <motion.div
-                className="absolute -bottom-6 -left-6 glass rounded-lg p-4 z-20"
+                className="absolute bottom-4 left-4 glass rounded-lg p-4 z-20"
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
@@ -105,7 +105,7 @@ export function Hero() {
               </motion.div>
 
               <motion.div
-                className="absolute -top-6 -right-6 glass rounded-lg p-4 z-20"
+                className="absolute top-4 right-4 glass rounded-lg p-4 z-20"
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               >
