@@ -35,10 +35,10 @@ export function Hero() {
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-tight mb-6" data-testid="text-hero-title">
               Reimagining the{" "}
-              <span className="relative">
+              <span className="relative inline-block pb-2">
                 <span className="text-gradient">Future</span>
                 <motion.div
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary to-accent rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-accent rounded-full"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ delay: 0.6, duration: 0.8 }}
