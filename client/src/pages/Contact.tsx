@@ -253,11 +253,11 @@ export default function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-8"
+              className="space-y-8 flex flex-col items-center text-center lg:items-start lg:text-left"
             >
-              <div>
+              <div className="w-full">
                 <h2 className="text-2xl font-serif font-bold mb-6">About Antwon</h2>
-                <div className="prose prose-invert max-w-none">
+                <div className="prose prose-invert max-w-none mx-auto lg:mx-0">
                   <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                     Antwon wouldn't be here today if it was not for a successful heart 
                     surgery in 2002.
@@ -277,7 +277,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 w-full items-center lg:items-start">
                 <div className="flex items-center gap-4" data-testid="text-contact-phone">
                   <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center flex-shrink-0">
                     <Phone className="w-5 h-5 text-copper" />
@@ -311,11 +311,11 @@ export default function Contact() {
               </a>
 
               <div>
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-semibold mb-4 flex items-center justify-center lg:justify-start gap-2">
                   <Heart className="w-5 h-5 text-copper" />
                   Featured Links
                 </h3>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                <div className="grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto lg:mx-0">
                   {featuredLinks.map((link, index) => (
                     <motion.a
                       key={link.title}
