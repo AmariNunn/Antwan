@@ -23,16 +23,20 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-copper/10 border border-copper/20 mb-8"
-              data-testid="badge-speaker"
-            >
-              <Sparkles className="w-4 h-4 text-copper" />
-              <span className="text-sm font-medium text-copper">Speaker + Coach in Education</span>
-            </motion.div>
+            <Link href="/video">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-copper/10 border border-copper/20 mb-8 cursor-pointer hover:bg-copper/20 transition-colors"
+                data-testid="badge-speaker"
+              >
+                <button className="flex items-center gap-2 w-full h-full">
+                  <Sparkles className="w-4 h-4 text-copper" />
+                  <span className="text-sm font-medium text-copper">Speaker + Coach in Education</span>
+                </button>
+              </motion.div>
+            </Link>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-tight mb-6" data-testid="text-hero-title">
               Reimagining the{" "}
