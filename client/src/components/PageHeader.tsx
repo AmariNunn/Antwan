@@ -19,7 +19,7 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
   
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
 
   if (variant === "split" && backgroundImage) {
     return (
@@ -173,7 +173,7 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
           style={{ y }}
         >
           <motion.div 
-            className="absolute inset-0 bg-cover bg-no-repeat scale-110"
+            className="absolute inset-0 bg-cover bg-no-repeat"
             style={{ 
               backgroundImage: `url(${backgroundImage})`,
               backgroundPosition: `${imagePosition} top`,
