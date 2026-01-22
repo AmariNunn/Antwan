@@ -10,9 +10,9 @@ export default function Home() {
   return (
     <div data-testid="page-home">
       <Hero />
-      <MediaFeatures />
-      <Services />
       <VideoSection />
+      <Services />
+      <MediaFeatures />
       <Organizations />
       <Testimonial />
       <CallToAction />
