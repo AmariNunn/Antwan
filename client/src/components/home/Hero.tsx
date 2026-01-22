@@ -31,10 +31,8 @@ export function Hero() {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-copper/10 border border-copper/20 mb-8 cursor-pointer hover:bg-copper/20 transition-colors"
                 data-testid="badge-speaker"
               >
-                <button className="flex items-center gap-2 w-full h-full">
-                  <Sparkles className="w-4 h-4 text-copper" />
-                  <span className="text-sm font-medium text-copper">Speaker + Coach in Education</span>
-                </button>
+                <Sparkles className="w-4 h-4 text-copper" />
+                <span className="text-sm font-medium text-copper">Speaker + Coach in Education</span>
               </motion.div>
             </Link>
 
