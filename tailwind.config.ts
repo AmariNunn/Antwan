@@ -81,6 +81,10 @@ export default {
           offline: "rgb(156 163 175)",
         },
         gold: "#FFD700",
+        copper: {
+          DEFAULT: "hsl(var(--copper) / <alpha-value>)",
+          foreground: "hsl(var(--copper-foreground) / <alpha-value>)",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)"],

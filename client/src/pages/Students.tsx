@@ -66,7 +66,7 @@ export default function Students() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-primary font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-self-equity-subtitle">Self-Equity Program</p>
+              <p className="text-copper font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-self-equity-subtitle">Self-Equity Program</p>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6" data-testid="text-self-equity-title">
                 Understanding{" "}
                 <span className="text-gradient">Yourself</span>
@@ -89,7 +89,7 @@ export default function Students() {
                     className="flex items-center gap-3"
                     data-testid={`self-equity-area-${index}`}
                   >
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-copper flex-shrink-0" />
                     <span className="text-foreground">{area}</span>
                   </motion.div>
                 ))}
@@ -100,7 +100,7 @@ export default function Students() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button variant="outline" data-testid="button-download-pdf">
+                <Button variant="outline" className="border-copper/50 text-copper" data-testid="button-download-pdf">
                   Download Self-Equity PDF
                   <ExternalLink className="ml-2 w-4 h-4" />
                 </Button>
@@ -135,7 +135,7 @@ export default function Students() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="text-primary font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-disc-subtitle">DISC Assessment</p>
+            <p className="text-copper font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-disc-subtitle">DISC Assessment</p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6" data-testid="text-disc-title">
               Which Bird Are{" "}
               <span className="text-gradient">You?</span>
@@ -209,8 +209,8 @@ export default function Students() {
                   <ul className="space-y-4">
                     {relationshipBenefits.map((benefit, index) => (
                       <li key={index} className="flex items-center gap-4" data-testid={`relationship-benefit-${index}`}>
-                        <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                          <Heart className="w-5 h-5 text-accent" />
+                        <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center flex-shrink-0">
+                          <Heart className="w-5 h-5 text-copper" />
                         </div>
                         <span className="text-foreground">{benefit}</span>
                       </li>
@@ -264,7 +264,7 @@ export default function Students() {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <Button size="lg" variant="outline" data-testid="button-take-disc">
+                <Button size="lg" variant="outline" className="border-copper/50 text-copper" data-testid="button-take-disc">
                   Take the DISC Assessment
                 </Button>
               </a>

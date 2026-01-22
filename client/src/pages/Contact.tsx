@@ -25,8 +25,10 @@ import {
   MapPin,
   ExternalLink,
   Heart,
-  Loader2
+  Loader2,
+  Phone
 } from "lucide-react";
+import antwonImg from "@assets/Antwon_Harris_009_1769039738636.JPEG";
 
 const featuredLinks = [
   {
@@ -274,23 +276,41 @@ export default function Contact() {
               </div>
 
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-4" data-testid="text-contact-email">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-primary" />
+                <div className="flex items-center gap-4" data-testid="text-contact-phone">
+                  <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5 text-copper" />
                   </div>
-                  <span className="text-foreground">contact@antwonharris.com</span>
+                  <a href="tel:7793482133" className="text-foreground hover:text-copper transition-colors">(779) 348-2133</a>
+                </div>
+                <div className="flex items-center gap-4" data-testid="text-contact-email">
+                  <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-copper" />
+                  </div>
+                  <a href="mailto:info@antwonharris.com" className="text-foreground hover:text-copper transition-colors">info@antwonharris.com</a>
                 </div>
                 <div className="flex items-center gap-4" data-testid="text-contact-location">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-copper" />
                   </div>
                   <span className="text-foreground">United States</span>
                 </div>
               </div>
 
+              <a 
+                href="https://blinq.me/cmgv8ex8901dis60m0kzi68uk?u=IelmX_5Q&bs=itc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <Button variant="outline" className="border-copper text-copper" data-testid="button-connect">
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Connect with Antwon
+                </Button>
+              </a>
+
               <div>
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <Heart className="w-5 h-5 text-primary" />
+                  <Heart className="w-5 h-5 text-copper" />
                   Featured Links
                 </h3>
                 <div className="space-y-3">
@@ -331,7 +351,7 @@ export default function Contact() {
             className="aspect-[16/9] rounded-lg overflow-hidden"
           >
             <img
-              src="https://static.wixstatic.com/media/98920f_3403be1d87f74982b6c447846685eb81~mv2.jpg/v1/fill/w_638,h_1128,al_c,q_85,enc_avif,quality_auto/98920f_3403be1d87f74982b6c447846685eb81~mv2.jpg"
+              src={antwonImg}
               alt="Antwon Harris"
               className="w-full h-full object-cover object-top"
               data-testid="img-antwon"

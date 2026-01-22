@@ -37,6 +37,8 @@
   --muted-foreground: 0 0% 55%;
   --accent: 45 100% 50%;
   --accent-foreground: 0 0% 4%;
+  --copper: 25 55% 50%;
+  --copper-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   --input: 0 0% 20%;
@@ -223,7 +225,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-copper to-primary;
   }
 
   .animate-fade-in {

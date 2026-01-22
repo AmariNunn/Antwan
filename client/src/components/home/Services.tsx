@@ -19,7 +19,7 @@ const services = [
     subtitle: "Building Self Equity",
     description: "Reimagining education through programs that develop mindfulness, emotional management, self-motivation, and perseverance.",
     href: "/students",
-    color: "accent",
+    color: "copper",
   },
   {
     icon: Target,
@@ -42,7 +42,7 @@ export function Services() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-primary font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-services-subtitle">What We Do</p>
+          <p className="text-copper font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-services-subtitle">What We Do</p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6" data-testid="text-services-title">
             Transforming Lives Through
             <br />
@@ -65,11 +65,11 @@ export function Services() {
             >
               <Card className="h-full hover-elevate active-elevate-2 overflow-visible transition-all duration-300">
                 <CardContent className="p-8">
-                  <div className={`w-14 h-14 rounded-lg ${service.color === "accent" ? "bg-accent" : "bg-primary"} flex items-center justify-center mb-6`}>
-                    <service.icon className={`w-7 h-7 ${service.color === "accent" ? "text-accent-foreground" : "text-primary-foreground"}`} />
+                  <div className={`w-14 h-14 rounded-lg ${service.color === "copper" ? "bg-copper" : "bg-primary"} flex items-center justify-center mb-6`}>
+                    <service.icon className="w-7 h-7 text-white" />
                   </div>
                   
-                  <p className={`text-sm font-medium mb-2 ${service.color === "accent" ? "text-accent" : "text-primary"}`} data-testid={`text-service-subtitle-${index}`}>
+                  <p className={`text-sm font-medium mb-2 ${service.color === "copper" ? "text-copper" : "text-primary"}`} data-testid={`text-service-subtitle-${index}`}>
                     {service.subtitle}
                   </p>
                   

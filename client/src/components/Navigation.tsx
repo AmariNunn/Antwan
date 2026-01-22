@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImg from "@assets/Logo_2_1769039571662.PNG";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -45,10 +46,12 @@ export function Navigation() {
                 className="flex items-center gap-3 cursor-pointer"
                 data-testid="link-logo"
               >
-                <div className="w-10 h-10 rounded-md bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                  <span className="font-serif text-xl font-bold text-white">A</span>
-                </div>
-                <span className="font-serif text-xl font-semibold tracking-tight">
+                <img 
+                  src={logoImg} 
+                  alt="Antwon Harris Logo" 
+                  className="h-12 w-auto"
+                />
+                <span className="font-serif text-xl font-semibold tracking-tight hidden sm:inline">
                   Antwon Harris
                 </span>
               </div>

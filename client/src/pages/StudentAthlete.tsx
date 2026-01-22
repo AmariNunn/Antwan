@@ -14,6 +14,7 @@ import {
   Heart,
   Brain
 } from "lucide-react";
+import antwonImg from "@assets/Antwon_Harris_006_1769039740848.JPEG";
 
 const keynotes = [
   {
@@ -26,7 +27,7 @@ const keynotes = [
     icon: Repeat,
     title: "Be Resilient",
     description: "Many college students have trouble recovering from academic and personal setbacks. This keynote presentation teaches students patience, mental toughness and ways to become more resilient in the event they face obstacles, challenges and the disappointment of not achieving their goal.",
-    color: "accent",
+    color: "copper",
   },
   {
     icon: Target,
@@ -38,7 +39,7 @@ const keynotes = [
     icon: Compass,
     title: "Finding Your Purpose",
     description: "Students may view their life as worthless if they have not defined their purpose. Students need to feel like their life has value and meaning. Antwon's keynote presentation will inspire and teach college students how to identify their gifts and discover their purpose.",
-    color: "accent",
+    color: "copper",
   },
 ];
 
@@ -67,7 +68,7 @@ export default function StudentAthlete() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="text-primary font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-keynotes-subtitle">Keynote Presentations</p>
+            <p className="text-copper font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-keynotes-subtitle">Keynote Presentations</p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6" data-testid="text-keynotes-title">
               Transformational{" "}
               <span className="text-gradient">Keynotes</span>
@@ -89,8 +90,8 @@ export default function StudentAthlete() {
               >
                 <Card className="h-full hover-elevate active-elevate-2 overflow-visible transition-all duration-300">
                   <CardContent className="p-8">
-                    <div className={`w-14 h-14 rounded-lg ${keynote.color === "accent" ? "bg-accent" : "bg-primary"} flex items-center justify-center mb-6`}>
-                      <keynote.icon className={`w-7 h-7 ${keynote.color === "accent" ? "text-accent-foreground" : "text-primary-foreground"}`} />
+                    <div className={`w-14 h-14 rounded-lg ${keynote.color === "copper" ? "bg-copper" : "bg-primary"} flex items-center justify-center mb-6`}>
+                      <keynote.icon className="w-7 h-7 text-white" />
                     </div>
                     
                     <h3 className="text-xl font-semibold mb-4" data-testid={`text-keynote-title-${index}`}>{keynote.title}</h3>
@@ -113,7 +114,7 @@ export default function StudentAthlete() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-primary font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-why-subtitle">Why Choose Antwon</p>
+              <p className="text-copper font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-why-subtitle">Why Choose Antwon</p>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6" data-testid="text-why-title">
                 A Coach Who{" "}
                 <span className="text-gradient">Understands</span>
@@ -135,8 +136,8 @@ export default function StudentAthlete() {
                     className="flex items-center gap-4"
                     data-testid={`benefit-item-${index}`}
                   >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="w-5 h-5 text-primary" />
+                    <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center flex-shrink-0">
+                      <benefit.icon className="w-5 h-5 text-copper" />
                     </div>
                     <span className="text-foreground">{benefit.text}</span>
                   </motion.li>
@@ -160,8 +161,8 @@ export default function StudentAthlete() {
             >
               <div className="aspect-[4/3] rounded-lg overflow-hidden">
                 <img
-                  src="https://static.wixstatic.com/media/98920f_464c6b524b8b4ab6a3d45f0de6ace44f~mv2.jpg/v1/fill/w_952,h_654,al_c,q_85,enc_avif,quality_auto/98920f_464c6b524b8b4ab6a3d45f0de6ace44f~mv2.jpg"
-                  alt="Antwon speaking to student-athletes"
+                  src={antwonImg}
+                  alt="Antwon Harris"
                   className="w-full h-full object-cover"
                   data-testid="img-speaking"
                 />
@@ -173,7 +174,7 @@ export default function StudentAthlete() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
                 <div className="flex items-start gap-3">
-                  <Quote className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                  <Quote className="w-6 h-6 text-copper flex-shrink-0 mt-1" />
                   <p className="text-sm" data-testid="text-inline-quote">
                     "Antwon's message resonated deeply with our athletes and helped 
                     them see beyond the game."
@@ -214,7 +215,7 @@ export default function StudentAthlete() {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <Button size="lg" variant="outline" data-testid="button-disc-athlete">
+                <Button size="lg" variant="outline" className="border-copper/50 text-copper" data-testid="button-disc-athlete">
                   Take the DISC Assessment
                 </Button>
               </a>

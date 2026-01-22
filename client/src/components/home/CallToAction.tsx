@@ -6,11 +6,11 @@ import { ArrowRight, Calendar, Sparkles } from "lucide-react";
 export function CallToAction() {
   return (
     <section className="relative section-padding overflow-hidden" data-testid="section-cta">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-copper/10" />
       
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/15 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-copper/15 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -20,9 +20,9 @@ export function CallToAction() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-accent/10 border border-accent/20 mb-8" data-testid="badge-cta">
-            <Sparkles className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium text-accent">Transform Your Event</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-copper/10 border border-copper/20 mb-8" data-testid="badge-cta">
+            <Sparkles className="w-4 h-4 text-copper" />
+            <span className="text-sm font-medium text-copper">Transform Your Event</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6" data-testid="text-cta-title">
@@ -49,7 +49,7 @@ export function CallToAction() {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              <Button size="lg" variant="outline" className="w-full sm:w-auto" data-testid="button-cta-disc">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-copper/50 text-copper" data-testid="button-cta-disc">
                 Take the DISC Assessment
               </Button>
             </a>
