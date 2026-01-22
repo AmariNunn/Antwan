@@ -113,6 +113,7 @@ export default function StudentAthlete() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="order-2 lg:order-1"
             >
               <p className="text-copper font-medium mb-4 tracking-wide uppercase text-sm" data-testid="text-why-subtitle">Why Choose Antwon</p>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6" data-testid="text-why-title">
@@ -157,7 +158,7 @@ export default function StudentAthlete() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
+              className="relative order-1 lg:order-2"
             >
               <div className="aspect-[4/3] rounded-lg overflow-hidden">
                 <img
