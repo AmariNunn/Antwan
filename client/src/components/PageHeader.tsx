@@ -49,7 +49,6 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
           className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 py-12 lg:py-16 text-center"
           style={{ opacity }}
         >
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-3xl -z-10" />
           {subtitle && (
             <motion.div
               initial={{ opacity: 0, y: 15 }}
