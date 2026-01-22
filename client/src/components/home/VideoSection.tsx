@@ -18,18 +18,18 @@ const videos = [
     thumbnail: "https://i.ytimg.com/vi/w4xiZwnrxt8/maxresdefault.jpg",
   },
   {
-    id: "g5x3fLnLauA",
-    title: "Subconscious Teaching",
-    source: "Antwon Harris",
-    duration: "02:31",
-    thumbnail: "https://i.ytimg.com/vi/g5x3fLnLauA/maxresdefault.jpg",
+    id: "mzeKFNJxuTc",
+    title: "\"Dreaming Big\" Promo with NBC Affiliate WREX",
+    source: "NBC Affiliate WREX",
+    duration: "02:00",
+    thumbnail: "https://i.ytimg.com/vi/mzeKFNJxuTc/maxresdefault.jpg",
   },
   {
-    id: "Y-5lV91T4Js",
-    title: "Teacher Tip Tuesday: Representation Matters",
-    source: "Antwon Harris",
-    duration: "02:21",
-    thumbnail: "https://i.ytimg.com/vi/Y-5lV91T4Js/maxresdefault.jpg",
+    id: "FlAelrvZi2M",
+    title: "Men of Confidence Mentorship PODCAST",
+    source: "Men of Confidence",
+    duration: "01:00:00",
+    thumbnail: "https://i.ytimg.com/vi/FlAelrvZi2M/maxresdefault.jpg",
   },
 ];
 
