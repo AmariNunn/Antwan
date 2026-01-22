@@ -315,7 +315,7 @@ export default function Contact() {
                   <Heart className="w-5 h-5 text-copper" />
                   Featured Links
                 </h3>
-                <div className="space-y-3">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
                   {featuredLinks.map((link, index) => (
                     <motion.a
                       key={link.title}
@@ -329,11 +329,11 @@ export default function Contact() {
                       className="flex items-center justify-between p-4 rounded-lg bg-card border border-border hover-elevate active-elevate-2 transition-colors"
                       data-testid={`link-featured-${index}`}
                     >
-                      <div>
-                        <p className="font-medium">{link.title}</p>
-                        <p className="text-sm text-muted-foreground">{link.source}</p>
+                      <div className="min-w-0 pr-2">
+                        <p className="font-medium truncate">{link.title}</p>
+                        <p className="text-sm text-muted-foreground truncate">{link.source}</p>
                       </div>
-                      <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                      <ExternalLink className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                     </motion.a>
                   ))}
                 </div>
