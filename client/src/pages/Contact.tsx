@@ -29,6 +29,7 @@ import {
   Phone
 } from "lucide-react";
 import headerImg from "@assets/targeted_element_1769040840361.png";
+import antwonImg from "@assets/Antwon_Harris_006_1769043939415.JPEG";
 
 const featuredLinks = [
   {
@@ -244,6 +245,20 @@ export default function Contact() {
                       </Button>
                     </form>
                   </Form>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="mt-8 rounded-lg overflow-hidden border border-border/50"
+                  >
+                    <img
+                      src={antwonImg}
+                      alt="Antwon Harris"
+                      className="w-full h-auto object-cover"
+                    />
+                  </motion.div>
                 </CardContent>
               </Card>
             </motion.div>
