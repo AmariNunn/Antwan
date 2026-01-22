@@ -27,6 +27,7 @@ export function Navigation() {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
 
   return (
