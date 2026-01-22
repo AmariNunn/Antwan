@@ -19,7 +19,7 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
   
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   if (variant === "split" && backgroundImage) {
     return (
@@ -165,7 +165,7 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
     return (
       <section 
         ref={ref}
-        className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20"
+        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-20"
         data-testid="section-page-header"
       >
         <motion.div 
@@ -173,17 +173,17 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
           style={{ y }}
         >
           <motion.div 
-            className="absolute inset-0 bg-cover bg-no-repeat"
+            className="absolute inset-0 bg-contain bg-no-repeat"
             style={{ 
               backgroundImage: `url(${backgroundImage})`,
-              backgroundPosition: `${imagePosition} top`,
+              backgroundPosition: `${imagePosition} center`,
               scale
             }}
           />
         </motion.div>
         
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20" />
         
         <motion.div 
           className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 py-20 text-center"
