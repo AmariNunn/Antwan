@@ -7,9 +7,10 @@ interface PageHeaderProps {
   description?: string;
   backgroundImage?: string;
   variant?: "default" | "hero" | "split";
+  imagePosition?: string;
 }
 
-export function PageHeader({ title, subtitle, description, backgroundImage, variant = "default" }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, description, backgroundImage, variant = "default", imagePosition = "center" }: PageHeaderProps) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -172,9 +173,10 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
           style={{ y }}
         >
           <motion.div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
+            className="absolute inset-0 bg-cover bg-no-repeat scale-110"
             style={{ 
               backgroundImage: `url(${backgroundImage})`,
+              backgroundPosition: `${imagePosition} top`,
               scale
             }}
           />

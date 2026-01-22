@@ -113,7 +113,7 @@ export default function Contact() {
         title="Book Antwon Harris"
         description="Ready to inspire your audience? Let's discuss how Antwon can transform your event with powerful keynotes and coaching."
         backgroundImage={headerImg}
-        variant="split"
+        imagePosition="57%"
       />
 
       <section className="section-padding" data-testid="section-contact">
