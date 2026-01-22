@@ -28,7 +28,6 @@ import {
   Loader2,
   Phone
 } from "lucide-react";
-import antwonImg from "@assets/Antwon_Harris_009_1769039738636.JPEG";
 import headerImg from "@assets/targeted_element_1769040840361.png";
 
 const featuredLinks = [
@@ -344,24 +343,6 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="section-padding bg-card/50" data-testid="section-image">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="aspect-[16/9] rounded-lg overflow-hidden"
-          >
-            <img
-              src={antwonImg}
-              alt="Antwon Harris"
-              className="w-full h-full object-cover object-top"
-              data-testid="img-antwon"
-            />
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }
