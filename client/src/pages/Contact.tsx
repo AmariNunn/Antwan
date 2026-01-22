@@ -29,6 +29,7 @@ import {
   Phone
 } from "lucide-react";
 import antwonImg from "@assets/Antwon_Harris_009_1769039738636.JPEG";
+import headerImg from "@assets/targeted_element_1769040840361.png";
 
 const featuredLinks = [
   {
@@ -109,8 +110,10 @@ export default function Contact() {
     <div data-testid="page-contact">
       <PageHeader
         subtitle="Get in Touch"
-        title="Book Antwon"
-        description="Ready to inspire your audience? Let's discuss how Antwon can transform your event."
+        title="Book Antwon Harris"
+        description="Ready to inspire your audience? Let's discuss how Antwon can transform your event with powerful keynotes and coaching."
+        backgroundImage={headerImg}
+        variant="split"
       />
 
       <section className="section-padding" data-testid="section-contact">
