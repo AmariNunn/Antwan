@@ -41,10 +41,8 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
             }}
           />
         </motion.div>
-        
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20" />
-        
         <motion.div 
           className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 py-12 lg:py-16 text-center"
           style={{ opacity }}
@@ -54,7 +52,7 @@ export function PageHeader({ title, subtitle, description, backgroundImage, vari
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-copper/10 border border-copper/20 mb-4"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-copper/20 mb-4 bg-[#000000ab]"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-copper animate-pulse" />
               <span className="text-xs font-medium text-copper uppercase tracking-wider">{subtitle}</span>
