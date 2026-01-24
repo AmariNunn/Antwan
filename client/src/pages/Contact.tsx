@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSchema } from "@shared/schema";
@@ -83,7 +82,24 @@ export default function Contact() {
 
   const submitMutation = useMutation({
     mutationFn: async (data: ContactFormValues) => {
-      return await apiRequest("POST", "/api/contact", data);
+      const response = await fetch("https://formspree.io/f/mykeovvj", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          organization: data.organization,
+          message: data.message,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+      return response.json();
     },
     onSuccess: () => {
       toast({
