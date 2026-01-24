@@ -28,18 +28,18 @@ export class MemStorage implements IStorage {
   private seedProducts() {
     const initialProducts: InsertProduct[] = [
       {
-        name: "Training Sessions",
-        description: "One-on-one professional athletic training tailored to your needs.",
-        price: "75.00",
-        imageUrl: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
-        purchaseUrl: "#"
+        name: "Equity Adult Hoodies",
+        description: "Official Antwon Harris Equity program hoodies. High-quality, comfortable, and meaningful.",
+        price: "45.00",
+        imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
+        purchaseUrl: "https://baxts.square.site/product/equity-adult-hoodies/609?cp=true&sa=false&sbp=false&q=true"
       },
       {
-        name: "Performance Gear",
-        description: "High-quality gear designed for maximum performance.",
-        price: "45.00",
-        imageUrl: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80",
-        purchaseUrl: "#"
+        name: "Equity Adult Tees",
+        description: "Official Antwon Harris Equity program t-shirts. Perfect for everyday wear and showing support.",
+        price: "25.00",
+        imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80",
+        purchaseUrl: "https://baxts.square.site/product/equity-adult-tees/608?cp=true&sa=false&sbp=false&q=true"
       }
     ];
 
