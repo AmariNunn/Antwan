@@ -55,5 +55,17 @@ export async function registerRoutes(
     }
   });
 
+  app.get("/api/products", async (req, res) => {
+    try {
+      const products = await storage.getProducts();
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ 
+        success: false, 
+        message: "An error occurred while fetching products" 
+      });
+    }
+  });
+
   return httpServer;
 }
