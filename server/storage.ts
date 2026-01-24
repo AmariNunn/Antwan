@@ -40,6 +40,27 @@ export class MemStorage implements IStorage {
         price: "25.00",
         imageUrl: "/src/assets/tshirt.webp",
         purchaseUrl: "https://baxts.square.site/product/equity-adult-tees/608?cp=true&sa=false&sbp=false&q=true"
+      },
+      {
+        name: "Dreaming Big",
+        description: "An inspiring book about dreaming big and achieving your goals. Perfect for students and athletes.",
+        price: "19.99",
+        imageUrl: "/src/assets/dreaming-big.webp",
+        purchaseUrl: "https://buy.stripe.com/6oU9AU1Lm3eR0im7mLdZ600"
+      },
+      {
+        name: "DBA Children's Book",
+        description: "A children's book that teaches valuable life lessons through engaging stories and illustrations.",
+        price: "14.99",
+        imageUrl: "/src/assets/dba-childrens-book.webp",
+        purchaseUrl: "https://buy.stripe.com/6oU5kE1Lm8zb3uyfThdZ601"
+      },
+      {
+        name: "Coloring Book",
+        description: "A fun and educational coloring book for kids. Develop creativity while learning important values.",
+        price: "9.99",
+        imageUrl: "/src/assets/coloring-book.webp",
+        purchaseUrl: "https://buy.stripe.com/cNieVe4Xy5mZ2qucH5dZ602"
       }
     ];
 
