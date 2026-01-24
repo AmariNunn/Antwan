@@ -52,7 +52,7 @@ export class MemStorage implements IStorage {
         name: "DBA Children's Book",
         description: "A children's book that teaches valuable life lessons through engaging stories and illustrations.",
         price: "14.99",
-        imageUrl: "/attached_assets/DB_Cover_USL_Portrait_NEW_1769279783062.pdf",
+        imageUrl: "/attached_assets/Screenshot_2026-01-24_at_12.42.22_PM_1769280147377.png",
         purchaseUrl: "https://buy.stripe.com/6oU5kE1Lm8zb3uyfThdZ601"
       },
       {
