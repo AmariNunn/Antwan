@@ -11,6 +11,7 @@ import Students from "@/pages/Students";
 import Contact from "@/pages/Contact";
 import VideoView from "@/pages/VideoView";
 import Shop from "@/pages/Shop";
+import Impact from "@/pages/Impact";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/video" component={VideoView} />
       <Route path="/shop" component={Shop} />
+      <Route path="/impact" component={Impact} />
       <Route component={NotFound} />
     </Switch>
   );
