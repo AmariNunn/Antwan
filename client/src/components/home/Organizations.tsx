@@ -10,10 +10,8 @@ const organizations = [
 ];
 
 export function Organizations() {
-  const duplicatedOrgs = [...organizations, ...organizations, ...organizations];
-
   return (
-    <section className="section-padding overflow-hidden" data-testid="section-organizations">
+    <section className="section-padding" data-testid="section-organizations">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -34,31 +32,23 @@ export function Organizations() {
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
           
-          <div className="overflow-hidden">
-            <motion.div
-              className="flex gap-6"
-              animate={{
-                x: [0, -1 * organizations.length * 176],
-              }}
-              transition={{
-                x: {
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                },
-              }}
-            >
-              {duplicatedOrgs.map((org, index) => (
-                <div
-                  key={`${org.name}-${index}`}
+          <div className="overflow-x-auto pb-4 scrollbar-hide">
+            <div className="flex gap-6 px-6">
+              {organizations.map((org, index) => (
+                <motion.div
+                  key={org.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
                   className="flex-shrink-0"
                 >
                   <div 
                     className="w-40 h-40 rounded-lg bg-card border border-border flex flex-col items-center justify-center p-6 hover-elevate active-elevate-2 transition-all duration-300"
-                    data-testid={`org-card-${org.initials.toLowerCase()}-${index}`}
+                    data-testid={`org-card-${org.initials.toLowerCase()}`}
                   >
                     <span className="text-2xl md:text-3xl font-bold text-muted-foreground">
                       {org.initials}
@@ -67,9 +57,9 @@ export function Organizations() {
                       {org.name}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
