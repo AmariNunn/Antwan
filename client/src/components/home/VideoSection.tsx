@@ -35,6 +35,7 @@ const videos = [
 ];
 
 export function VideoSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimationControls();
   const x = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -110,8 +111,6 @@ export function VideoSection() {
       currentPositionRef.current = pos;
     }
   };
-
-  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className="section-padding bg-card/30 overflow-hidden" data-testid="section-videos">
