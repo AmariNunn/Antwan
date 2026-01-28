@@ -31,28 +31,31 @@ export function Organizations() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {organizations.map((org, index) => (
-            <motion.div
-              key={org.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-            >
-              <div 
-                className="aspect-square rounded-lg bg-card border border-border flex flex-col items-center justify-center p-6 hover-elevate active-elevate-2 transition-all duration-300"
-                data-testid={`org-card-${org.initials.toLowerCase()}`}
+        <div className="overflow-x-auto pb-4 -mx-6 px-6 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+          <div className="flex gap-6 min-w-max">
+            {organizations.map((org, index) => (
+              <motion.div
+                key={org.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="flex-shrink-0"
               >
-                <span className="text-2xl md:text-3xl font-bold text-muted-foreground" data-testid={`org-initials-${org.initials.toLowerCase()}`}>
-                  {org.initials}
-                </span>
-                <span className="text-xs text-center text-muted-foreground mt-3" data-testid={`org-name-${org.initials.toLowerCase()}`}>
-                  {org.name}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+                <div 
+                  className="w-40 h-40 rounded-lg bg-card border border-border flex flex-col items-center justify-center p-6 hover-elevate active-elevate-2 transition-all duration-300"
+                  data-testid={`org-card-${org.initials.toLowerCase()}`}
+                >
+                  <span className="text-2xl md:text-3xl font-bold text-muted-foreground" data-testid={`org-initials-${org.initials.toLowerCase()}`}>
+                    {org.initials}
+                  </span>
+                  <span className="text-xs text-center text-muted-foreground mt-3" data-testid={`org-name-${org.initials.toLowerCase()}`}>
+                    {org.name}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
