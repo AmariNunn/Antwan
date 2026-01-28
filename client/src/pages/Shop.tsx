@@ -114,18 +114,18 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
         </Button>
 
         <div className="grid md:grid-cols-2 gap-0">
-          <div className="relative aspect-square md:aspect-auto bg-muted overflow-hidden">
+          <div className="relative aspect-square md:aspect-auto bg-white overflow-hidden flex items-center justify-center p-4">
             <img
               src={product.imageUrl}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="max-w-full max-h-full w-auto h-auto object-contain"
               data-testid="img-modal-product"
             />
             <div className="absolute top-4 left-4">
               <motion.div
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                className="flex items-center gap-2 bg-primary text-primary-foreground px-3 py-1.5 rounded-full text-sm font-medium"
+                className="flex items-center gap-2 bg-primary text-primary-foreground px-3 py-1.5 rounded-full text-sm font-medium shadow-lg"
               >
                 {badge.icon === "trending" && <TrendingUp className="w-4 h-4" />}
                 {badge.icon === "popular" && <Users className="w-4 h-4" />}
@@ -318,23 +318,23 @@ export default function Shop() {
               onClick={() => setSelectedProduct(product)}
               data-testid={`card-product-${product.id}`}
             >
-              <div className="h-64 overflow-hidden bg-muted relative">
+              <div className="h-64 overflow-hidden bg-white relative flex items-center justify-center p-4">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                   data-testid={`img-product-${product.id}`}
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="bg-white/90 text-black px-4 py-2 rounded-full font-medium text-sm">
+                    <div className="bg-black/80 text-white px-4 py-2 rounded-full font-medium text-sm backdrop-blur-sm shadow-xl">
                       Quick View
                     </div>
                   </div>
                 </div>
                 {productBadges[product.id] && (
                   <div className="absolute top-3 left-3">
-                    <div className="flex items-center gap-1.5 bg-primary text-primary-foreground px-2.5 py-1 rounded-full text-xs font-medium">
+                    <div className="flex items-center gap-1.5 bg-primary text-primary-foreground px-2.5 py-1 rounded-full text-xs font-medium shadow-md">
                       {productBadges[product.id].icon === "trending" && <TrendingUp className="w-3 h-3" />}
                       {productBadges[product.id].icon === "popular" && <Users className="w-3 h-3" />}
                       {productBadges[product.id].icon === "new" && <Sparkles className="w-3 h-3" />}
