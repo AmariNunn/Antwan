@@ -284,88 +284,106 @@ export default function Shop() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="flex flex-col items-center mb-12 text-center">
-        <h1 className="text-4xl font-bold tracking-tight mb-4" data-testid="text-shop-title">Shop</h1>
-        <p className="text-muted-foreground max-w-2xl">
-          Get the gear and training you need to excel in your athletic and academic journey.
-        </p>
+    <div className="pb-12">
+      <div className="relative h-[400px] flex items-center justify-center overflow-hidden mb-12">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80')] bg-cover bg-center">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" />
+        </div>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="container relative z-10 px-4 text-center"
+        >
+          <p className="text-primary font-medium mb-4 tracking-widest uppercase text-sm">Official Merchandise</p>
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6" data-testid="text-shop-title">
+            The <span className="text-gradient">Shop</span>
+          </h1>
+          <div className="w-24 h-1 bg-primary mx-auto mb-8 rounded-full" />
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">
+            Get the gear and training you need to excel in your athletic and academic journey. 
+            Quality tools for those committed to excellence.
+          </p>
+        </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {isLoading ? (
-          Array.from({ length: 3 }).map((_, i) => (
-            <Card key={i} className="overflow-hidden">
-              <Skeleton className="h-64 w-full" />
-              <CardHeader>
-                <Skeleton className="h-6 w-3/4 mb-2" />
-                <Skeleton className="h-4 w-1/2" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-4 w-full mb-2" />
-                <Skeleton className="h-4 w-full" />
-              </CardContent>
-              <CardFooter>
-                <Skeleton className="h-10 w-full" />
-              </CardFooter>
-            </Card>
-          ))
-        ) : (
-          products?.map((product) => (
-            <Card 
-              key={product.id} 
-              className="overflow-hidden flex flex-col hover-elevate cursor-pointer group" 
-              onClick={() => setSelectedProduct(product)}
-              data-testid={`card-product-${product.id}`}
-            >
-              <div className="h-64 overflow-hidden bg-white relative flex items-center justify-center p-4">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                  data-testid={`img-product-${product.id}`}
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="bg-black/80 text-white px-4 py-2 rounded-full font-medium text-sm backdrop-blur-sm shadow-xl">
-                      Quick View
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {isLoading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <Card key={i} className="overflow-hidden">
+                <Skeleton className="h-64 w-full" />
+                <CardHeader>
+                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-1/2" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-full" />
+                </CardContent>
+                <CardFooter>
+                  <Skeleton className="h-10 w-full" />
+                </CardFooter>
+              </Card>
+            ))
+          ) : (
+            products?.map((product) => (
+              <Card 
+                key={product.id} 
+                className="overflow-hidden flex flex-col hover-elevate cursor-pointer group" 
+                onClick={() => setSelectedProduct(product)}
+                data-testid={`card-product-${product.id}`}
+              >
+                <div className="h-64 overflow-hidden bg-white relative flex items-center justify-center p-4">
+                  <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                    data-testid={`img-product-${product.id}`}
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-black/80 text-white px-4 py-2 rounded-full font-medium text-sm backdrop-blur-sm shadow-xl">
+                        Quick View
+                      </div>
                     </div>
                   </div>
-                </div>
-                {productBadges[product.id] && (
-                  <div className="absolute top-3 left-3">
-                    <div className="flex items-center gap-1.5 bg-primary text-primary-foreground px-2.5 py-1 rounded-full text-xs font-medium shadow-md">
-                      {productBadges[product.id].icon === "trending" && <TrendingUp className="w-3 h-3" />}
-                      {productBadges[product.id].icon === "popular" && <Users className="w-3 h-3" />}
-                      {productBadges[product.id].icon === "new" && <Sparkles className="w-3 h-3" />}
-                      {productBadges[product.id].text}
+                  {productBadges[product.id] && (
+                    <div className="absolute top-3 left-3">
+                      <div className="flex items-center gap-1.5 bg-primary text-primary-foreground px-2.5 py-1 rounded-full text-xs font-medium shadow-md">
+                        {productBadges[product.id].icon === "trending" && <TrendingUp className="w-3 h-3" />}
+                        {productBadges[product.id].icon === "popular" && <Users className="w-3 h-3" />}
+                        {productBadges[product.id].icon === "new" && <Sparkles className="w-3 h-3" />}
+                        {productBadges[product.id].text}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-              <CardHeader>
-                <div className="flex justify-between items-start gap-2">
-                  <CardTitle className="text-xl" data-testid={`text-product-name-${product.id}`}>{product.name}</CardTitle>
-                  <span className="font-bold text-lg text-primary" data-testid={`text-product-price-${product.id}`}>${product.price}</span>
+                  )}
                 </div>
-                <CardDescription className="line-clamp-2">{product.description}</CardDescription>
-              </CardHeader>
-              <CardFooter className="mt-auto pt-6">
-                <Button 
-                  className="w-full" 
-                  data-testid={`button-purchase-${product.id}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedProduct(product);
-                  }}
-                >
-                  <ShoppingBag className="mr-2 h-4 w-4" />
-                  View Details
-                </Button>
-              </CardFooter>
-            </Card>
-          ))
-        )}
+                <CardHeader>
+                  <div className="flex justify-between items-start gap-2">
+                    <CardTitle className="text-xl" data-testid={`text-product-name-${product.id}`}>{product.name}</CardTitle>
+                    <span className="font-bold text-lg text-primary" data-testid={`text-product-price-${product.id}`}>${product.price}</span>
+                  </div>
+                  <CardDescription className="line-clamp-2">{product.description}</CardDescription>
+                </CardHeader>
+                <CardFooter className="mt-auto pt-6">
+                  <Button 
+                    className="w-full" 
+                    data-testid={`button-purchase-${product.id}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedProduct(product);
+                    }}
+                  >
+                    <ShoppingBag className="mr-2 h-4 w-4" />
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))
+          )}
+        </div>
       </div>
 
       <AnimatePresence>
