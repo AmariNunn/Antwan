@@ -12,7 +12,6 @@ export default function Home() {
       <Hero />
       <VideoSection />
       <Services />
-      <MediaFeatures />
       <Organizations />
       <Testimonial />
       <CallToAction />

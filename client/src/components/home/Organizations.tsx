@@ -10,6 +10,14 @@ const organizations = [
   { name: "Rockford Public Schools", initials: "RPS" },
 ];
 
+const mediaLogos = [
+  { name: "NBC", initial: "NBC" },
+  { name: "CBS", initial: "CBS" },
+  { name: "ESPN", initial: "ESPN" },
+  { name: "Sports Illustrated", initial: "SI" },
+  { name: "Sporting News", initial: "SN" },
+];
+
 export function Organizations() {
   const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimationControls();
@@ -97,13 +105,31 @@ export function Organizations() {
             Organizations We've{" "}
             <span className="text-gradient">Worked With</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg" data-testid="text-org-description">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg mb-12" data-testid="text-org-description">
             From universities to school districts, we've partnered with leading 
             educational institutions to transform lives.
           </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 mt-8">
+            {mediaLogos.map((logo, index) => (
+              <motion.div
+                key={logo.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity"
+                data-testid={`media-logo-${logo.name.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                <span className="text-xl md:text-2xl font-bold text-muted-foreground tracking-tighter">
+                  {logo.initial}
+                </span>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
-        <div className="relative">
+        <div className="relative mt-12">
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
           
