@@ -38,38 +38,87 @@ export function VideoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const currentPositionRef = useRef(0);
+  const animationRef = useRef<number | null>(null);
+  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const duplicatedVideos = [...videos, ...videos, ...videos, ...videos, ...videos];
   const itemWidth = 440;
   const totalWidth = videos.length * itemWidth;
+  const scrollSpeed = 0.5; // pixels per frame
 
-  useEffect(() => {
-    const unsubscribe = x.on("change", (latest) => {
-      currentPositionRef.current = latest;
+  // Auto-scroll animation
+  const animate = () => {
+    if (!isPaused && !isDragging) {
+      let newPos = currentPositionRef.current - scrollSpeed;
       
-      // Seamless infinite loop - wrap position when reaching ends
-      if (latest < -totalWidth * 2) {
-        const newPos = latest + totalWidth;
-        x.set(newPos);
-        currentPositionRef.current = newPos;
-      } else if (latest > -totalWidth * 0.5) {
-        const newPos = latest - totalWidth;
-        x.set(newPos);
-        currentPositionRef.current = newPos;
+      // Seamless loop
+      if (newPos < -totalWidth * 2) {
+        newPos = newPos + totalWidth;
       }
-    });
-    return () => unsubscribe();
-  }, [x, totalWidth]);
+      
+      x.set(newPos);
+      currentPositionRef.current = newPos;
+    }
+    animationRef.current = requestAnimationFrame(animate);
+  };
 
-  // Start in the middle of the loop for seamless scrolling both directions
+  // Start animation on mount
   useEffect(() => {
     x.set(-totalWidth);
     currentPositionRef.current = -totalWidth;
+    animationRef.current = requestAnimationFrame(animate);
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      if (pauseTimeoutRef.current) {
+        clearTimeout(pauseTimeoutRef.current);
+      }
+    };
   }, []);
+
+  // Handle position tracking during drag
+  useEffect(() => {
+    const unsubscribe = x.on("change", (latest) => {
+      if (isDragging) {
+        currentPositionRef.current = latest;
+        
+        // Seamless infinite loop during drag
+        if (latest < -totalWidth * 2) {
+          const newPos = latest + totalWidth;
+          x.set(newPos);
+          currentPositionRef.current = newPos;
+        } else if (latest > -totalWidth * 0.5) {
+          const newPos = latest - totalWidth;
+          x.set(newPos);
+          currentPositionRef.current = newPos;
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [x, totalWidth, isDragging]);
+
+  // Resume after 40 seconds of no interaction
+  const startPauseTimer = () => {
+    if (pauseTimeoutRef.current) {
+      clearTimeout(pauseTimeoutRef.current);
+    }
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 40000); // 40 seconds
+  };
+
+  const handleInteraction = () => {
+    setIsPaused(true);
+    startPauseTimer();
+  };
 
   const handleDragEnd = () => {
     setIsDragging(false);
+    handleInteraction();
   };
 
   const handleDoubleClick = (videoId: string) => {
@@ -103,7 +152,10 @@ export function VideoSection() {
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-card/30 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-card/30 to-transparent z-10 pointer-events-none" />
           
-          <div className="overflow-hidden cursor-grab active:cursor-grabbing">
+          <div 
+            className="overflow-hidden cursor-grab active:cursor-grabbing"
+            onClick={handleInteraction}
+          >
             <motion.div
               ref={containerRef}
               className="flex gap-8"
@@ -111,7 +163,10 @@ export function VideoSection() {
               drag="x"
               dragConstraints={{ left: -totalWidth * 3, right: totalWidth }}
               dragElastic={0.1}
-              onDragStart={() => setIsDragging(true)}
+              onDragStart={() => {
+                setIsDragging(true);
+                setIsPaused(true);
+              }}
               onDragEnd={handleDragEnd}
             >
               {duplicatedVideos.map((video, index) => (
