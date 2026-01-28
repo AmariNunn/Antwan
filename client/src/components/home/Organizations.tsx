@@ -1,4 +1,4 @@
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls, useMotionValue } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const organizations = [
@@ -13,34 +13,74 @@ const organizations = [
 export function Organizations() {
   const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimationControls();
+  const x = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const currentPositionRef = useRef(0);
 
-  // Triple the array to ensure smooth infinite loop coverage
   const duplicatedOrgs = [...organizations, ...organizations, ...organizations];
-  const itemWidth = 184; // 160px width + 24px (gap-6)
+  const itemWidth = 184;
   const totalWidth = organizations.length * itemWidth;
 
-  const startAnimation = async () => {
+  const startAnimation = async (fromPosition: number) => {
+    let normalizedPosition = fromPosition % totalWidth;
+    if (normalizedPosition > 0) {
+      normalizedPosition = normalizedPosition - totalWidth;
+    }
+    
+    const remainingDistance = -totalWidth - normalizedPosition;
+    const fullDuration = 25;
+    const remainingDuration = (remainingDistance / totalWidth) * fullDuration;
+
     await controls.start({
-      x: [0, -totalWidth],
+      x: -totalWidth,
       transition: {
-        x: {
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear",
-        },
+        duration: Math.abs(remainingDuration),
+        ease: "linear",
+      },
+    });
+
+    controls.set({ x: 0 });
+    currentPositionRef.current = 0;
+    
+    await controls.start({
+      x: -totalWidth,
+      transition: {
+        duration: fullDuration,
+        repeat: Infinity,
+        ease: "linear",
       },
     });
   };
 
   useEffect(() => {
+    const unsubscribe = x.on("change", (latest) => {
+      currentPositionRef.current = latest;
+    });
+    return () => unsubscribe();
+  }, [x]);
+
+  useEffect(() => {
     if (!isHovering && !isDragging) {
-      startAnimation();
+      startAnimation(currentPositionRef.current);
     } else {
       controls.stop();
     }
   }, [isHovering, isDragging]);
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    let pos = currentPositionRef.current;
+    if (pos < -totalWidth * 2) {
+      pos = pos + totalWidth;
+      controls.set({ x: pos });
+      currentPositionRef.current = pos;
+    } else if (pos > 0) {
+      pos = pos - totalWidth;
+      controls.set({ x: pos });
+      currentPositionRef.current = pos;
+    }
+  };
 
   return (
     <section className="section-padding overflow-hidden" data-testid="section-organizations">
@@ -79,19 +119,11 @@ export function Organizations() {
               ref={containerRef}
               className="flex gap-6"
               animate={controls}
+              style={{ x }}
               drag="x"
               dragConstraints={{ left: -totalWidth * 2, right: 0 }}
               onDragStart={() => setIsDragging(true)}
-              onDragEnd={(_, info) => {
-                setIsDragging(false);
-                // Reset position if dragged too far to keep loop seamless
-                const currentX = info.point.x;
-                if (Math.abs(currentX) >= totalWidth * 2) {
-                  controls.set({ x: currentX + totalWidth });
-                } else if (currentX > 0) {
-                  controls.set({ x: currentX - totalWidth });
-                }
-              }}
+              onDragEnd={handleDragEnd}
             >
               {duplicatedOrgs.map((org, index) => (
                 <div

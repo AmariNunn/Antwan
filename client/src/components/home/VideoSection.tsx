@@ -1,7 +1,7 @@
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls, useMotionValue } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Play, ExternalLink } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const videos = [
   {
@@ -36,34 +36,74 @@ const videos = [
 
 export function VideoSection() {
   const controls = useAnimationControls();
+  const x = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const currentPositionRef = useRef(0);
 
-  // Triple the array to ensure smooth infinite loop coverage
   const duplicatedVideos = [...videos, ...videos, ...videos];
-  const itemWidth = 440; // Approximate width of each video card + gap
+  const itemWidth = 440;
   const totalWidth = videos.length * itemWidth;
 
-  const startAnimation = async () => {
+  const startAnimation = async (fromPosition: number) => {
+    let normalizedPosition = fromPosition % totalWidth;
+    if (normalizedPosition > 0) {
+      normalizedPosition = normalizedPosition - totalWidth;
+    }
+    
+    const remainingDistance = -totalWidth - normalizedPosition;
+    const fullDuration = 30;
+    const remainingDuration = (remainingDistance / totalWidth) * fullDuration;
+
     await controls.start({
-      x: [0, -totalWidth],
+      x: -totalWidth,
       transition: {
-        x: {
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear",
-        },
+        duration: Math.abs(remainingDuration),
+        ease: "linear",
+      },
+    });
+
+    controls.set({ x: 0 });
+    currentPositionRef.current = 0;
+    
+    await controls.start({
+      x: -totalWidth,
+      transition: {
+        duration: fullDuration,
+        repeat: Infinity,
+        ease: "linear",
       },
     });
   };
 
   useEffect(() => {
+    const unsubscribe = x.on("change", (latest) => {
+      currentPositionRef.current = latest;
+    });
+    return () => unsubscribe();
+  }, [x]);
+
+  useEffect(() => {
     if (!isHovering && !isDragging) {
-      startAnimation();
+      startAnimation(currentPositionRef.current);
     } else {
       controls.stop();
     }
   }, [isHovering, isDragging]);
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    let pos = currentPositionRef.current;
+    if (pos < -totalWidth * 2) {
+      pos = pos + totalWidth;
+      controls.set({ x: pos });
+      currentPositionRef.current = pos;
+    } else if (pos > 0) {
+      pos = pos - totalWidth;
+      controls.set({ x: pos });
+      currentPositionRef.current = pos;
+    }
+  };
 
   return (
     <section className="section-padding bg-card/30 overflow-hidden" data-testid="section-videos">
@@ -101,18 +141,11 @@ export function VideoSection() {
             <motion.div
               className="flex gap-8"
               animate={controls}
+              style={{ x }}
               drag="x"
               dragConstraints={{ left: -totalWidth * 2, right: 0 }}
               onDragStart={() => setIsDragging(true)}
-              onDragEnd={(_, info) => {
-                setIsDragging(false);
-                const currentX = info.point.x;
-                if (Math.abs(currentX) >= totalWidth * 2) {
-                  controls.set({ x: currentX + totalWidth });
-                } else if (currentX > 0) {
-                  controls.set({ x: currentX - totalWidth });
-                }
-              }}
+              onDragEnd={handleDragEnd}
             >
               {duplicatedVideos.map((video, index) => (
                 <div
