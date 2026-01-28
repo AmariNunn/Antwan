@@ -10,8 +10,10 @@ const organizations = [
 ];
 
 export function Organizations() {
+  const duplicatedOrgs = [...organizations, ...organizations, ...organizations];
+
   return (
-    <section className="section-padding" data-testid="section-organizations">
+    <section className="section-padding overflow-hidden" data-testid="section-organizations">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -31,30 +33,43 @@ export function Organizations() {
           </p>
         </motion.div>
 
-        <div className="overflow-x-auto pb-4 -mx-6 px-6 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
-          <div className="flex gap-6 min-w-max">
-            {organizations.map((org, index) => (
-              <motion.div
-                key={org.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="flex-shrink-0"
-              >
-                <div 
-                  className="w-40 h-40 rounded-lg bg-card border border-border flex flex-col items-center justify-center p-6 hover-elevate active-elevate-2 transition-all duration-300"
-                  data-testid={`org-card-${org.initials.toLowerCase()}`}
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+          
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-6"
+              animate={{
+                x: [0, -1 * organizations.length * 176],
+              }}
+              transition={{
+                x: {
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                },
+              }}
+            >
+              {duplicatedOrgs.map((org, index) => (
+                <div
+                  key={`${org.name}-${index}`}
+                  className="flex-shrink-0"
                 >
-                  <span className="text-2xl md:text-3xl font-bold text-muted-foreground" data-testid={`org-initials-${org.initials.toLowerCase()}`}>
-                    {org.initials}
-                  </span>
-                  <span className="text-xs text-center text-muted-foreground mt-3" data-testid={`org-name-${org.initials.toLowerCase()}`}>
-                    {org.name}
-                  </span>
+                  <div 
+                    className="w-40 h-40 rounded-lg bg-card border border-border flex flex-col items-center justify-center p-6 hover-elevate active-elevate-2 transition-all duration-300"
+                    data-testid={`org-card-${org.initials.toLowerCase()}-${index}`}
+                  >
+                    <span className="text-2xl md:text-3xl font-bold text-muted-foreground">
+                      {org.initials}
+                    </span>
+                    <span className="text-xs text-center text-muted-foreground mt-3">
+                      {org.name}
+                    </span>
+                  </div>
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </motion.div>
           </div>
         </div>
       </div>
