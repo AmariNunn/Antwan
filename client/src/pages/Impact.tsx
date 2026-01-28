@@ -17,7 +17,9 @@ import {
   Award,
   Handshake,
   ClipboardCheck,
-  BookOpen
+  BookOpen,
+  Building2,
+  Quote
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -43,6 +45,28 @@ const discTypes = [
   { name: "Parrot", description: "Influential and expressive" },
   { name: "Dove", description: "Steady and supportive" },
   { name: "Owl", description: "Conscientious and analytical" },
+];
+
+const organizations = [
+  "U.S. Army",
+  "American Sociological Association",
+  "Clarksville-Montgomery County School System",
+  "Miami-Dade County Public School",
+];
+
+const testimonials = [
+  {
+    quote: "Antwon Harris is our annual speaker for the Academy Expo. He speaks to eight groups of 9th graders as they arrive for our annual career exploration event. He immediately connects with each individual student as they walk through the door. Antwon speaks with students about the importance of showing up and taking advantage of everything the day had to offer. We typically have 102 booths with industry experts ready to demonstrate their career to over 2,000 students. Antwon encourages students to interact with our business partners and instructs them to ask questions, be present, and engage with the men and women who were there for them. He creates an instant rapport with our students, and they take Antwon serious. This year's event was the best to date, and that is due in part to Antwon's presence.",
+    author: "Bridget French",
+    title: "Executive Director for College & Career Readiness",
+    organization: "Rockford Public Schools",
+  },
+  {
+    quote: "Since 2021, the Antwon Harris Group has been a key contributor to Rockford Public Schools' Live, Learn, Play initiative, a city-wide effort born from a collective commitment to help students re-engage academically, socially, and emotionally in the wake of the COVID-19 pandemic. Through strategic collaboration with Rockford Public Schools and the innovative use of ARP ESSER funding, Antwon and his team have helped us reimagine what extended learning time and holistic student development can look like. Over the years, I've witnessed the transformation of students who entered as freshmen mentees and are now preparing for their senior year as confident, equipped juniors who have served as peer mentors themselves. This full-circle impact speaks directly to the strength and intentional design of the Self-Equity Program.",
+    author: "Don Rundall",
+    title: "Principal",
+    organization: "Freeport Middle School",
+  },
 ];
 
 export default function Impact() {
@@ -258,6 +282,92 @@ export default function Impact() {
                 </CardContent>
               </Card>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-muted/30" data-testid="section-organizations">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Badge variant="outline" className="mb-4">
+              <Building2 className="w-3 h-3 mr-1" />
+              Trusted Partners
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+              Organizations We've Worked With
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              We're proud to partner with leading educational institutions and organizations 
+              committed to student success.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {organizations.map((org, index) => (
+              <motion.div
+                key={org}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="h-full text-center hover-elevate">
+                  <CardContent className="pt-6 pb-6 flex items-center justify-center min-h-[120px]">
+                    <p className="font-medium text-foreground">{org}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding" data-testid="section-testimonials">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Badge variant="outline" className="mb-4">
+              <Quote className="w-3 h-3 mr-1" />
+              What Leaders Say
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+              Testimonials
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.author}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="h-full">
+                  <CardContent className="pt-6">
+                    <Quote className="w-8 h-8 text-copper/30 mb-4" />
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      "{testimonial.quote}"
+                    </p>
+                    <div className="border-t pt-4">
+                      <p className="font-semibold text-foreground">{testimonial.author}</p>
+                      <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                      <p className="text-sm text-copper">{testimonial.organization}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
