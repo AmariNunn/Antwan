@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Play, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const videos = [
   {
@@ -34,8 +35,38 @@ const videos = [
 ];
 
 export function VideoSection() {
+  const controls = useAnimationControls();
+  const [isHovering, setIsHovering] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Triple the array to ensure smooth infinite loop coverage
+  const duplicatedVideos = [...videos, ...videos, ...videos];
+  const itemWidth = 440; // Approximate width of each video card + gap
+  const totalWidth = videos.length * itemWidth;
+
+  const startAnimation = async () => {
+    await controls.start({
+      x: [0, -totalWidth],
+      transition: {
+        x: {
+          duration: 30,
+          repeat: Infinity,
+          ease: "linear",
+        },
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!isHovering && !isDragging) {
+      startAnimation();
+    } else {
+      controls.stop();
+    }
+  }, [isHovering, isDragging]);
+
   return (
-    <section className="section-padding bg-card/30" data-testid="section-videos">
+    <section className="section-padding bg-card/30 overflow-hidden" data-testid="section-videos">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -55,56 +86,88 @@ export function VideoSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {videos.map((video, index) => (
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-card/30 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-card/30 to-transparent z-10 pointer-events-none" />
+          
+          <div 
+            className="overflow-hidden cursor-grab active:cursor-grabbing"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => {
+              setIsHovering(false);
+              setIsDragging(false);
+            }}
+          >
             <motion.div
-              key={video.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="flex gap-8"
+              animate={controls}
+              drag="x"
+              dragConstraints={{ left: -totalWidth * 2, right: 0 }}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={(_, info) => {
+                setIsDragging(false);
+                const currentX = info.point.x;
+                if (Math.abs(currentX) >= totalWidth * 2) {
+                  controls.set({ x: currentX + totalWidth });
+                } else if (currentX > 0) {
+                  controls.set({ x: currentX - totalWidth });
+                }
+              }}
             >
-              <a
-                href={`https://www.youtube.com/watch?v=${video.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-                data-testid={`link-video-${video.id}`}
-              >
-                <Card className="overflow-hidden hover-elevate active-elevate-2 transition-all duration-300">
-                  <div className="relative aspect-video overflow-hidden">
-                    <img
-                      src={video.thumbnail}
-                      alt={video.title}
-                      className="w-full h-full object-cover transition-transform duration-500"
-                      data-testid={`img-video-${video.id}`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-                        <Play className="w-7 h-7 text-primary-foreground ml-1" />
-                      </div>
-                    </div>
+              {duplicatedVideos.map((video, index) => (
+                <div
+                  key={`${video.id}-${index}`}
+                  className="flex-shrink-0 w-[400px]"
+                >
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block pointer-events-auto"
+                    data-testid={`link-video-${video.id}-${index}`}
+                    onClick={(e) => {
+                      if (isDragging) {
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    <Card className="overflow-hidden hover-elevate active-elevate-2 transition-all duration-300">
+                      <div className="relative aspect-video overflow-hidden">
+                        <img
+                          src={video.thumbnail}
+                          alt={video.title}
+                          className="w-full h-full object-cover transition-transform duration-500"
+                          data-testid={`img-video-${video.id}-${index}`}
+                          draggable={false}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                        
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
+                            <Play className="w-7 h-7 text-primary-foreground ml-1" />
+                          </div>
+                        </div>
 
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <span className="inline-block px-2 py-1 rounded bg-black/60 text-white text-xs font-medium" data-testid={`text-video-duration-${video.id}`}>
-                        {video.duration}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <p className="text-sm text-muted-foreground mb-2" data-testid={`text-video-source-${video.id}`}>{video.source}</p>
-                    <h3 className="font-semibold text-lg flex items-start gap-2" data-testid={`text-video-title-${video.id}`}>
-                      {video.title}
-                      <ExternalLink className="w-4 h-4 flex-shrink-0 mt-1 opacity-50" />
-                    </h3>
-                  </CardContent>
-                </Card>
-              </a>
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <span className="inline-block px-2 py-1 rounded bg-black/60 text-white text-xs font-medium">
+                            {video.duration}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <CardContent className="p-6">
+                        <p className="text-sm text-muted-foreground mb-2">{video.source}</p>
+                        <h3 className="font-semibold text-lg flex items-start gap-2">
+                          {video.title}
+                          <ExternalLink className="w-4 h-4 flex-shrink-0 mt-1 opacity-50" />
+                        </h3>
+                      </CardContent>
+                    </Card>
+                  </a>
+                </div>
+              ))}
             </motion.div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
