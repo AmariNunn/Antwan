@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 
 const organizations = [
+  { name: "U.S. Army", initials: "USA" },
+  { name: "American Sociological Association", initials: "ASA" },
+  { name: "Clarksville-Montgomery County School System", initials: "CMCSS" },
+  { name: "Miami-Dade County Public School", initials: "MDCPS" },
   { name: "Highland Community College", initials: "HCC" },
-  { name: "Longwood University", initials: "LU" },
-  { name: "Texas Tech University", initials: "TTU" },
   { name: "Rockford Public Schools", initials: "RPS" },
-  { name: "Alignment Rockford", initials: "AR" },
-  { name: "Jefferson Academy", initials: "JA" },
 ];
 
 export function Organizations() {
