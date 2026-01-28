@@ -1,11 +1,60 @@
-import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ShoppingBag, X, Star, TrendingUp, Users, ChevronLeft, ChevronRight, Sparkles, Clock, CheckCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  imageUrl: string;
+  purchaseUrl: string;
+}
+
+const products: Product[] = [
+  {
+    id: 1,
+    name: "Equity Adult Hoodies",
+    description: "Official Antwon Harris Equity program hoodies. High-quality, comfortable, and meaningful.",
+    price: "45.00",
+    imageUrl: "/images/hoodie.webp",
+    purchaseUrl: "https://baxts.square.site/product/equity-adult-hoodies/609?cp=true&sa=false&sbp=false&q=true",
+  },
+  {
+    id: 2,
+    name: "Equity Adult Tees",
+    description: "Official Antwon Harris Equity program t-shirts. Perfect for everyday wear and showing support.",
+    price: "25.00",
+    imageUrl: "/images/tshirt.webp",
+    purchaseUrl: "https://baxts.square.site/product/equity-adult-tees/608?cp=true&sa=false&sbp=false&q=true",
+  },
+  {
+    id: 3,
+    name: "Dreaming Big",
+    description: "An inspiring book about dreaming big and achieving your goals. Perfect for students and athletes.",
+    price: "19.99",
+    imageUrl: "/attached_assets/GEARS(ebookcover)_(1)_1769279750695.png",
+    purchaseUrl: "https://buy.stripe.com/6oU9AU1Lm3eR0im7mLdZ600",
+  },
+  {
+    id: 4,
+    name: "DBA Children's Book",
+    description: "A children's book that teaches valuable life lessons through engaging stories and illustrations.",
+    price: "14.99",
+    imageUrl: "/attached_assets/Screenshot_2026-01-24_at_12.42.22_PM_1769280147377.png",
+    purchaseUrl: "https://buy.stripe.com/6oU5kE1Lm8zb3uyfThdZ601",
+  },
+  {
+    id: 5,
+    name: "Coloring Book",
+    description: "A fun and educational coloring book for kids. Develop creativity while learning important values.",
+    price: "9.99",
+    imageUrl: "/attached_assets/Screenshot_(82)_1769279738566.png",
+    purchaseUrl: "https://buy.stripe.com/cNieVe4Xy5mZ2qucH5dZ602",
+  },
+];
 
 const productTestimonials: Record<number, { name: string; comment: string; rating: number }[]> = {
   1: [
@@ -278,10 +327,6 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 
 export default function Shop() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  
-  const { data: products, isLoading } = useQuery<Product[]>({
-    queryKey: ["/api/products"],
-  });
 
   return (
     <div className="pb-12">
@@ -310,25 +355,7 @@ export default function Shop() {
 
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {isLoading ? (
-            Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="overflow-hidden">
-                <Skeleton className="h-64 w-full" />
-                <CardHeader>
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-1/2" />
-                </CardHeader>
-                <CardContent>
-                  <Skeleton className="h-4 w-full mb-2" />
-                  <Skeleton className="h-4 w-full" />
-                </CardContent>
-                <CardFooter>
-                  <Skeleton className="h-10 w-full" />
-                </CardFooter>
-              </Card>
-            ))
-          ) : (
-            products?.map((product) => (
+          {products.map((product) => (
               <Card 
                 key={product.id} 
                 className="overflow-hidden flex flex-col hover-elevate cursor-pointer group" 
@@ -381,8 +408,7 @@ export default function Shop() {
                   </Button>
                 </CardFooter>
               </Card>
-            ))
-          )}
+            ))}
         </div>
       </div>
 
