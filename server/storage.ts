@@ -31,14 +31,14 @@ export class MemStorage implements IStorage {
         name: "Equity Adult Hoodies",
         description: "Official Antwon Harris Equity program hoodies. High-quality, comfortable, and meaningful.",
         price: "45.00",
-        imageUrl: "/src/assets/hoodie.webp",
+        imageUrl: "/images/hoodie.webp",
         purchaseUrl: "https://baxts.square.site/product/equity-adult-hoodies/609?cp=true&sa=false&sbp=false&q=true"
       },
       {
         name: "Equity Adult Tees",
         description: "Official Antwon Harris Equity program t-shirts. Perfect for everyday wear and showing support.",
         price: "25.00",
-        imageUrl: "/src/assets/tshirt.webp",
+        imageUrl: "/images/tshirt.webp",
         purchaseUrl: "https://baxts.square.site/product/equity-adult-tees/608?cp=true&sa=false&sbp=false&q=true"
       },
       {
