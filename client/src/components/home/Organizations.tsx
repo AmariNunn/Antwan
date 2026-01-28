@@ -48,7 +48,9 @@ export function Organizations() {
       },
     });
 
-    controls.set({ x: 0 });
+    if (containerRef.current) {
+      controls.set({ x: 0 });
+    }
     currentPositionRef.current = 0;
     
     await controls.start({
@@ -81,11 +83,15 @@ export function Organizations() {
     let pos = currentPositionRef.current;
     if (pos < -totalWidth * 2) {
       pos = pos + totalWidth;
-      controls.set({ x: pos });
+      if (containerRef.current) {
+        controls.set({ x: pos });
+      }
       currentPositionRef.current = pos;
     } else if (pos > 0) {
       pos = pos - totalWidth;
-      controls.set({ x: pos });
+      if (containerRef.current) {
+        controls.set({ x: pos });
+      }
       currentPositionRef.current = pos;
     }
   };
