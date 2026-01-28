@@ -48,8 +48,19 @@ This is a portfolio website for Antwon Harris, a professional motivational speak
 
 The app runs on port 5000 with the `npm run dev` command which starts both the Vite dev server for the frontend and the Express server for the backend.
 
+## Deployment
+
+The site is designed to be deployed on Netlify as a static site. Key considerations:
+- **Shop products** are hardcoded in the frontend (not fetched from API) for Netlify compatibility
+- Product images in `/public/images/` and `/attached_assets/` are included in the build
+- No backend required for the Shop page
+
 ## Recent Changes
 
+- Shop page products moved to static data for Netlify deployment compatibility
+- Fixed carousel animation errors with mount checks
+- Media logos consolidated into Organizations section
+- Premium product modals with rotating testimonials and social proof
 - Initial build with modern dark theme design
 - All four pages implemented with full content
 - Contact form with validation and API integration
