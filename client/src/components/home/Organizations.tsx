@@ -1,5 +1,5 @@
-import { motion, useAnimationControls, useMotionValue } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring, PanInfo } from "framer-motion";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const organizations = [
   { name: "U.S. Army", initials: "USA" },
@@ -20,80 +20,76 @@ const mediaLogos = [
 
 export function Organizations() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const controls = useAnimationControls();
-  const x = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const currentPositionRef = useRef(0);
+  const dragStartRef = useRef(0);
+  const animationRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
 
   const duplicatedOrgs = [...organizations, ...organizations, ...organizations];
-  const itemWidth = 184;
-  const totalWidth = organizations.length * itemWidth;
+  const itemWidth = 160;
+  const gap = 24;
+  const singleSetWidth = organizations.length * (itemWidth + gap);
+  
+  const baseX = useMotionValue(-singleSetWidth);
+  const x = useSpring(baseX, { stiffness: 300, damping: 30, mass: 0.5 });
+  
+  const wrapPosition = useCallback((pos: number) => {
+    let wrapped = pos;
+    while (wrapped < -singleSetWidth * 2) wrapped += singleSetWidth;
+    while (wrapped > 0) wrapped -= singleSetWidth;
+    return wrapped;
+  }, [singleSetWidth]);
 
-  const startAnimation = async (fromPosition: number) => {
-    let normalizedPosition = fromPosition % totalWidth;
-    if (normalizedPosition > 0) {
-      normalizedPosition = normalizedPosition - totalWidth;
-    }
+  const animate = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+    const delta = timestamp - lastTimeRef.current;
+    lastTimeRef.current = timestamp;
     
-    const remainingDistance = -totalWidth - normalizedPosition;
-    const fullDuration = 25;
-    const remainingDuration = (remainingDistance / totalWidth) * fullDuration;
-
-    await controls.start({
-      x: -totalWidth,
-      transition: {
-        duration: Math.abs(remainingDuration),
-        ease: "linear",
-      },
-    });
-
-    if (containerRef.current) {
-      controls.set({ x: 0 });
-    }
-    currentPositionRef.current = 0;
+    const speed = 0.025;
+    const currentX = baseX.get();
+    let newX = currentX - speed * delta;
+    newX = wrapPosition(newX);
+    baseX.set(newX);
     
-    await controls.start({
-      x: -totalWidth,
-      transition: {
-        duration: fullDuration,
-        repeat: Infinity,
-        ease: "linear",
-      },
-    });
-  };
-
-  useEffect(() => {
-    const unsubscribe = x.on("change", (latest) => {
-      currentPositionRef.current = latest;
-    });
-    return () => unsubscribe();
-  }, [x]);
+    animationRef.current = requestAnimationFrame(animate);
+  }, [baseX, wrapPosition]);
 
   useEffect(() => {
     if (!isHovering && !isDragging) {
-      startAnimation(currentPositionRef.current);
+      lastTimeRef.current = 0;
+      animationRef.current = requestAnimationFrame(animate);
     } else {
-      controls.stop();
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
     }
-  }, [isHovering, isDragging]);
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isHovering, isDragging, animate]);
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-    let pos = currentPositionRef.current;
-    if (pos < -totalWidth * 2) {
-      pos = pos + totalWidth;
-      if (containerRef.current) {
-        controls.set({ x: pos });
-      }
-      currentPositionRef.current = pos;
-    } else if (pos > 0) {
-      pos = pos - totalWidth;
-      if (containerRef.current) {
-        controls.set({ x: pos });
-      }
-      currentPositionRef.current = pos;
-    }
+  const handleDragStart = () => {
+    setIsDragging(true);
+    dragStartRef.current = baseX.get();
+  };
+
+  const handleDrag = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const newX = dragStartRef.current + info.offset.x;
+    baseX.set(newX);
+  };
+
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const velocity = info.velocity.x;
+    const currentX = baseX.get();
+    const projectedX = currentX + velocity * 0.3;
+    const wrapped = wrapPosition(projectedX);
+    baseX.set(wrapped);
+    
+    setTimeout(() => setIsDragging(false), 50);
   };
 
   return (
@@ -136,25 +132,27 @@ export function Organizations() {
         </motion.div>
 
         <div className="relative mt-12">
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
           
           <div 
             className="overflow-hidden cursor-grab active:cursor-grabbing"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => {
               setIsHovering(false);
-              setIsDragging(false);
+              if (isDragging) setIsDragging(false);
             }}
           >
             <motion.div
               ref={containerRef}
-              className="flex gap-6"
-              animate={controls}
+              className="flex gap-6 touch-pan-x"
               style={{ x }}
               drag="x"
-              dragConstraints={{ left: -totalWidth * 2, right: 0 }}
-              onDragStart={() => setIsDragging(true)}
+              dragConstraints={{ left: -singleSetWidth * 3, right: singleSetWidth }}
+              dragElastic={0}
+              dragMomentum={false}
+              onDragStart={handleDragStart}
+              onDrag={handleDrag}
               onDragEnd={handleDragEnd}
             >
               {duplicatedOrgs.map((org, index) => (
@@ -163,13 +161,13 @@ export function Organizations() {
                   className="flex-shrink-0"
                 >
                   <div 
-                    className="w-40 h-40 rounded-lg bg-card border border-border flex flex-col items-center justify-center p-6 hover-elevate active-elevate-2 transition-all duration-300 pointer-events-none"
+                    className="w-36 h-36 md:w-40 md:h-40 rounded-lg bg-card border border-border flex flex-col items-center justify-center p-4 md:p-6 hover-elevate active-elevate-2 transition-all duration-300 pointer-events-none"
                     data-testid={`org-card-${org.initials.toLowerCase()}-${index}`}
                   >
-                    <span className="text-2xl md:text-3xl font-bold text-muted-foreground">
+                    <span className="text-xl md:text-2xl lg:text-3xl font-bold text-muted-foreground">
                       {org.initials}
                     </span>
-                    <span className="text-xs text-center text-muted-foreground mt-3">
+                    <span className="text-[10px] md:text-xs text-center text-muted-foreground mt-2 md:mt-3 leading-tight">
                       {org.name}
                     </span>
                   </div>

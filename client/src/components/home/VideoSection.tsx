@@ -1,7 +1,7 @@
-import { motion, useAnimationControls, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useSpring, PanInfo } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Play, ExternalLink } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const videos = [
   {
@@ -36,80 +36,76 @@ const videos = [
 
 export function VideoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const controls = useAnimationControls();
-  const x = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const currentPositionRef = useRef(0);
+  const dragStartRef = useRef(0);
+  const animationRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
 
   const duplicatedVideos = [...videos, ...videos, ...videos];
-  const itemWidth = 440;
-  const totalWidth = videos.length * itemWidth;
+  const itemWidth = 432;
+  const gap = 32;
+  const singleSetWidth = videos.length * (itemWidth + gap);
+  
+  const baseX = useMotionValue(-singleSetWidth);
+  const x = useSpring(baseX, { stiffness: 300, damping: 30, mass: 0.5 });
+  
+  const wrapPosition = useCallback((pos: number) => {
+    let wrapped = pos;
+    while (wrapped < -singleSetWidth * 2) wrapped += singleSetWidth;
+    while (wrapped > 0) wrapped -= singleSetWidth;
+    return wrapped;
+  }, [singleSetWidth]);
 
-  const startAnimation = async (fromPosition: number) => {
-    let normalizedPosition = fromPosition % totalWidth;
-    if (normalizedPosition > 0) {
-      normalizedPosition = normalizedPosition - totalWidth;
-    }
+  const animate = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+    const delta = timestamp - lastTimeRef.current;
+    lastTimeRef.current = timestamp;
     
-    const remainingDistance = -totalWidth - normalizedPosition;
-    const fullDuration = 30;
-    const remainingDuration = (remainingDistance / totalWidth) * fullDuration;
-
-    await controls.start({
-      x: -totalWidth,
-      transition: {
-        duration: Math.abs(remainingDuration),
-        ease: "linear",
-      },
-    });
-
-    if (containerRef.current) {
-      controls.set({ x: 0 });
-    }
-    currentPositionRef.current = 0;
+    const speed = 0.03;
+    const currentX = baseX.get();
+    let newX = currentX - speed * delta;
+    newX = wrapPosition(newX);
+    baseX.set(newX);
     
-    await controls.start({
-      x: -totalWidth,
-      transition: {
-        duration: fullDuration,
-        repeat: Infinity,
-        ease: "linear",
-      },
-    });
-  };
-
-  useEffect(() => {
-    const unsubscribe = x.on("change", (latest) => {
-      currentPositionRef.current = latest;
-    });
-    return () => unsubscribe();
-  }, [x]);
+    animationRef.current = requestAnimationFrame(animate);
+  }, [baseX, wrapPosition]);
 
   useEffect(() => {
     if (!isHovering && !isDragging) {
-      startAnimation(currentPositionRef.current);
+      lastTimeRef.current = 0;
+      animationRef.current = requestAnimationFrame(animate);
     } else {
-      controls.stop();
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
     }
-  }, [isHovering, isDragging]);
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isHovering, isDragging, animate]);
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-    let pos = currentPositionRef.current;
-    if (pos < -totalWidth * 2) {
-      pos = pos + totalWidth;
-      if (containerRef.current) {
-        controls.set({ x: pos });
-      }
-      currentPositionRef.current = pos;
-    } else if (pos > 0) {
-      pos = pos - totalWidth;
-      if (containerRef.current) {
-        controls.set({ x: pos });
-      }
-      currentPositionRef.current = pos;
-    }
+  const handleDragStart = () => {
+    setIsDragging(true);
+    dragStartRef.current = baseX.get();
+  };
+
+  const handleDrag = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const newX = dragStartRef.current + info.offset.x;
+    baseX.set(newX);
+  };
+
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const velocity = info.velocity.x;
+    const currentX = baseX.get();
+    const projectedX = currentX + velocity * 0.3;
+    const wrapped = wrapPosition(projectedX);
+    baseX.set(wrapped);
+    
+    setTimeout(() => setIsDragging(false), 50);
   };
 
   return (
@@ -134,31 +130,33 @@ export function VideoSection() {
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-card/30 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-card/30 to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
           
           <div 
             className="overflow-hidden cursor-grab active:cursor-grabbing"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => {
               setIsHovering(false);
-              setIsDragging(false);
+              if (isDragging) setIsDragging(false);
             }}
           >
             <motion.div
               ref={containerRef}
-              className="flex gap-8"
-              animate={controls}
+              className="flex gap-8 touch-pan-x"
               style={{ x }}
               drag="x"
-              dragConstraints={{ left: -totalWidth * 2, right: 0 }}
-              onDragStart={() => setIsDragging(true)}
+              dragConstraints={{ left: -singleSetWidth * 3, right: singleSetWidth }}
+              dragElastic={0}
+              dragMomentum={false}
+              onDragStart={handleDragStart}
+              onDrag={handleDrag}
               onDragEnd={handleDragEnd}
             >
               {duplicatedVideos.map((video, index) => (
                 <div
                   key={`${video.id}-${index}`}
-                  className="flex-shrink-0 w-[400px]"
+                  className="flex-shrink-0 w-[340px] md:w-[400px]"
                 >
                   <a
                     href={`https://www.youtube.com/watch?v=${video.id}`}
@@ -167,7 +165,8 @@ export function VideoSection() {
                     className="block pointer-events-auto"
                     data-testid={`link-video-${video.id}-${index}`}
                     onClick={(e) => {
-                      if (isDragging) {
+                      const dragDistance = Math.abs(baseX.get() - dragStartRef.current);
+                      if (dragDistance > 10) {
                         e.preventDefault();
                       }
                     }}
@@ -184,21 +183,21 @@ export function VideoSection() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                         
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-                            <Play className="w-7 h-7 text-primary-foreground ml-1" />
+                          <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/90 flex items-center justify-center">
+                            <Play className="w-6 h-6 md:w-7 md:h-7 text-primary-foreground ml-1" />
                           </div>
                         </div>
 
-                        <div className="absolute bottom-4 left-4 right-4">
+                        <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
                           <span className="inline-block px-2 py-1 rounded bg-black/60 text-white text-xs font-medium">
                             {video.duration}
                           </span>
                         </div>
                       </div>
                       
-                      <CardContent className="p-6">
-                        <p className="text-sm text-muted-foreground mb-2">{video.source}</p>
-                        <h3 className="font-semibold text-lg flex items-start gap-2">
+                      <CardContent className="p-4 md:p-6">
+                        <p className="text-xs md:text-sm text-muted-foreground mb-1 md:mb-2">{video.source}</p>
+                        <h3 className="font-semibold text-base md:text-lg flex items-start gap-2 line-clamp-2">
                           {video.title}
                           <ExternalLink className="w-4 h-4 flex-shrink-0 mt-1 opacity-50" />
                         </h3>
