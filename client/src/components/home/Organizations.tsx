@@ -10,6 +10,8 @@ const organizations = [
 ];
 
 export function Organizations() {
+  const duplicatedOrgs = [...organizations, ...organizations, ...organizations];
+
   return (
     <section className="section-padding overflow-hidden" data-testid="section-organizations">
       <div className="max-w-7xl mx-auto">
@@ -31,20 +33,28 @@ export function Organizations() {
           </p>
         </motion.div>
 
-        <div className="relative group">
+        <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
           
-          <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent cursor-grab active:cursor-grabbing snap-x snap-mandatory">
-            <div className="flex gap-6 px-6 min-w-max">
-              {organizations.map((org, index) => (
-                <motion.div
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-6"
+              animate={{
+                x: [0, -1 * organizations.length * 176],
+              }}
+              transition={{
+                x: {
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                },
+              }}
+            >
+              {duplicatedOrgs.map((org, index) => (
+                <div
                   key={`${org.name}-${index}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  className="flex-shrink-0 snap-center"
+                  className="flex-shrink-0"
                 >
                   <div 
                     className="w-40 h-40 rounded-lg bg-card border border-border flex flex-col items-center justify-center p-6 hover-elevate active-elevate-2 transition-all duration-300"
@@ -57,9 +67,9 @@ export function Organizations() {
                       {org.name}
                     </span>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
