@@ -652,7 +652,7 @@ export default function Gears() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-6">
             {involvementOptions.map((option, index) => (
               <motion.div
                 key={option.label}
@@ -660,6 +660,9 @@ export default function Gears() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08 }}
+                className={`md:col-span-2 ${
+                  index === 3 ? "md:col-start-2" : index === 4 ? "md:col-start-4" : ""
+                }`}
               >
                 <a
                   href={option.href}
