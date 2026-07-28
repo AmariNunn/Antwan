@@ -37,7 +37,7 @@ export class MemStorage implements IStorage {
       {
         name: "Equity Adult Tees",
         description: "Official Antwon Harris Equity program t-shirts. Perfect for everyday wear and showing support.",
-        price: "25.00",
+        price: "30.00",
         imageUrl: "/images/tshirt.webp",
         purchaseUrl: "https://baxts.square.site/product/equity-adult-tees/608?cp=true&sa=false&sbp=false&q=true"
       },
