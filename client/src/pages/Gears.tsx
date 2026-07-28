@@ -305,11 +305,6 @@ export default function Gears() {
                 Sponsor a Student
               </Button>
             </a>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" data-testid="button-hero-volunteer">
-                Volunteer
-              </Button>
-            </Link>
           </motion.div>
         </div>
 
