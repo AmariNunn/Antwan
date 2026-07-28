@@ -18,7 +18,7 @@ const products: Product[] = [
     id: 1,
     name: "Equity Adult Hoodies",
     description: "Official Antwon Harris Equity program hoodies. High-quality, comfortable, and meaningful.",
-    price: "45.00",
+    price: "50.00",
     imageUrl: "/images/hoodie.webp",
     purchaseUrl: "https://baxts.square.site/product/equity-adult-hoodies/609?cp=true&sa=false&sbp=false&q=true",
   },
