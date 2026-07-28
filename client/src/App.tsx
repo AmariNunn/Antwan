@@ -12,6 +12,7 @@ import Contact from "@/pages/Contact";
 import VideoView from "@/pages/VideoView";
 import Shop from "@/pages/Shop";
 import Impact from "@/pages/Impact";
+import Gears from "@/pages/Gears";
 
 function Router() {
   return (
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/video" component={VideoView} />
       <Route path="/shop" component={Shop} />
       <Route path="/impact" component={Impact} />
+      <Route path="/gears" component={Gears} />
       <Route>
         <Redirect to="/" />
       </Route>

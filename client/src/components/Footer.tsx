@@ -17,11 +17,20 @@ const quickLinks = [
   { label: "Book Us/Partner", href: "/contact" },
 ];
 
+const foundationLinks = [
+  { label: "About the Foundation", href: "/gears" },
+  { label: "Programs", href: "/gears#programs" },
+  { label: "Events", href: "/gears#events" },
+  { label: "Donate", href: "/gears#donate" },
+  { label: "Volunteer", href: "/contact" },
+  { label: "Sponsors", href: "/contact" },
+];
+
 export function Footer() {
   return (
     <footer className="bg-card border-t border-border" data-testid="footer-main">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer mb-6" data-testid="link-footer-logo">
@@ -61,6 +70,24 @@ export function Footer() {
                     <span 
                       className="text-muted-foreground cursor-pointer"
                       data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      {link.label}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-6" data-testid="text-foundation-links-title">Foundation</h4>
+            <ul className="space-y-3">
+              {foundationLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href}>
+                    <span
+                      className="text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
+                      data-testid={`link-footer-foundation-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                     >
                       {link.label}
                     </span>
