@@ -44,21 +44,21 @@ export class MemStorage implements IStorage {
       {
         name: "Dreaming Big",
         description: "An inspiring book about dreaming big and achieving your goals. Perfect for students and athletes.",
-        price: "19.99",
+        price: "17.00",
         imageUrl: "/attached_assets/GEARS(ebookcover)_(1)_1769279750695.png",
         purchaseUrl: "https://buy.stripe.com/6oU9AU1Lm3eR0im7mLdZ600"
       },
       {
         name: "DBA Children's Book",
         description: "A children's book that teaches valuable life lessons through engaging stories and illustrations.",
-        price: "14.99",
+        price: "17.00",
         imageUrl: "/attached_assets/Screenshot_2026-01-24_at_12.42.22_PM_1769280147377.png",
         purchaseUrl: "https://buy.stripe.com/6oU5kE1Lm8zb3uyfThdZ601"
       },
       {
         name: "Coloring Book",
         description: "A fun and educational coloring book for kids. Develop creativity while learning important values.",
-        price: "9.99",
+        price: "8.00",
         imageUrl: "/attached_assets/Screenshot_(82)_1769279738566.png",
         purchaseUrl: "https://buy.stripe.com/cNieVe4Xy5mZ2qucH5dZ602"
       }
