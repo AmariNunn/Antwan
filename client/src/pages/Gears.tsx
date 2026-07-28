@@ -300,11 +300,11 @@ export default function Gears() {
                 Become a Partner
               </Button>
             </Link>
-            <a href="#donate">
+            <Link href="/contact">
               <Button size="lg" variant="outline" data-testid="button-hero-sponsor">
                 Sponsor a Student
               </Button>
-            </a>
+            </Link>
           </motion.div>
         </div>
 
