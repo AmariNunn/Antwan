@@ -25,7 +25,6 @@ import {
   Volleyball,
   BookOpen,
   Building2,
-  DollarSign,
   Clock,
   Award,
 } from "lucide-react";
@@ -154,7 +153,6 @@ const testimonials = [
 ];
 
 const involvementOptions = [
-  { label: "Donate", icon: DollarSign, href: "#donate", description: "Invest directly in a student's future" },
   { label: "Volunteer", icon: HandHeart, href: "/contact", description: "Give your time and expertise" },
   { label: "Become a Mentor", icon: Users, href: "/contact", description: "Walk alongside a student weekly" },
   { label: "Sponsor a Student", icon: GraduationCap, href: "#donate", description: "Fund a scholarship opportunity" },
@@ -297,12 +295,6 @@ export default function Gears() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-wrap gap-4 justify-center"
           >
-            <a href="#donate">
-              <Button size="lg" data-testid="button-hero-donate">
-                <Heart className="mr-2 w-4 h-4" />
-                Donate
-              </Button>
-            </a>
             <Link href="/contact">
               <Button size="lg" variant="outline" className="border-copper/50 text-copper hover:bg-copper/10" data-testid="button-hero-partner">
                 Become a Partner
@@ -841,24 +833,12 @@ export default function Gears() {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://www.antwonharris.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="lg" className="w-full sm:w-auto" data-testid="button-donate-cta">
-                  <Heart className="mr-2 w-4 h-4" />
-                  Donate Now
-                </Button>
-              </a>
-              <Link href="/contact">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto border-copper/50 text-copper">
-                  Explore Partnership
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-            </div>
+            <Link href="/contact">
+              <Button size="lg" variant="outline" className="border-copper/50 text-copper">
+                Explore Partnership
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
 
             <p className="text-xs text-muted-foreground mt-8">
               The G.E.A.R.S. Foundation is a registered 501(c)(3) nonprofit organization.
