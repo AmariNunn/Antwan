@@ -1,68 +1,31 @@
-# Antwon Harris Portfolio Website
+# Antwon Harris Group Website
 
-A modern redesign of Antwon Harris's personal portfolio website, built as a sleek, dynamic, and professional site with smooth interactions and clean visual hierarchy.
+A full-stack website for the Antwon Harris Group — a speaker, coach, and education advocate. Built with React + Express + TypeScript.
 
-## Overview
+## Stack
 
-This is a portfolio website for Antwon Harris, a professional motivational speaker and coach who specializes in education. The site features:
-
-- Modern dark theme with vibrant accent colors
-- Smooth Framer Motion animations
-- Responsive design across all devices
-- Contact form for booking inquiries
-
-## Tech Stack
-
-- **Frontend**: React, TypeScript, TailwindCSS, Framer Motion
-- **Backend**: Express.js, TypeScript
-- **UI Components**: shadcn/ui
-- **Routing**: Wouter
-- **State Management**: TanStack Query
+- **Frontend**: React 18, Wouter (routing), TailwindCSS, shadcn/ui, Framer Motion
+- **Backend**: Express 5, TypeScript, tsx (dev server)
+- **Storage**: In-memory (MemStorage) — no database required to run
+- **Build**: Vite (frontend), esbuild (backend)
 
 ## Pages
 
-1. **Home** (`/`) - Hero section, media features, services, video gallery, organizations, testimonials, CTA
-2. **Student-Athletes** (`/student-athlete`) - Programs for college athletes
-3. **Students** (`/students`) - Self-Equity program and DISC assessment info
-4. **Contact** (`/contact`) - Booking form and about information
+- `/` — Home / hero
+- `/student-athlete` — Student-Athlete program
+- `/students` — Students program
+- `/impact` — Impact stats & stories
+- `/shop` — Merch (links to Square store)
+- `/contact` — Contact form (stored in memory)
+- `/video` — Video view
 
-## Design System
+## Running
 
-### Colors
-- Primary: #4A9EFF (vibrant blue)
-- Accent: #FFD700 (gold)
-- Background: #0A0A0A (deep black)
-- Foreground: #E5E5E5 (off-white)
-- Card: #141414 (charcoal)
+```bash
+npm install   # first time only
+npm run dev   # starts on port 5000
+```
 
-### Fonts
-- Sans: Inter
-- Serif: Playfair Display
+The workflow "Start application" runs `npm run dev` and serves on port 5000.
 
-## API Endpoints
-
-- `POST /api/contact` - Submit contact form
-- `GET /api/contacts` - Get all contacts (admin)
-
-## Running the Application
-
-The app runs on port 5000 with the `npm run dev` command which starts both the Vite dev server for the frontend and the Express server for the backend.
-
-## Deployment
-
-The site is designed to be deployed on Netlify as a static site. Key considerations:
-- **Shop products** are hardcoded in the frontend (not fetched from API) for Netlify compatibility
-- Product images in `/public/images/` and `/attached_assets/` are included in the build
-- No backend required for the Shop page
-
-## Recent Changes
-
-- Shop page products moved to static data for Netlify deployment compatibility
-- Fixed carousel animation errors with mount checks
-- Media logos consolidated into Organizations section
-- Premium product modals with rotating testimonials and social proof
-- Initial build with modern dark theme design
-- All four pages implemented with full content
-- Contact form with validation and API integration
-- Framer Motion animations throughout
-- Responsive navigation with mobile menu
+## User preferences
