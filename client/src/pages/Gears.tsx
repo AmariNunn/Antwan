@@ -28,7 +28,7 @@ import {
   Clock,
   Award,
 } from "lucide-react";
-import heroImg from "@assets/Antwon_Harris_009_1769039738636.JPEG";
+import heroImg from "@assets/IMG_4701_1795292986946.png";
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 
@@ -237,10 +237,10 @@ export default function Gears() {
         <div className="absolute inset-0">
           <img
             src={heroImg}
-            alt="G.E.A.R.S. Foundation"
-            className="w-full h-full object-cover object-center"
+            alt="G.E.A.R.S. Foundation logo"
+            className="w-full h-full object-contain object-center bg-[#001c10]"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/80 to-background/60" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/70 via-background/60 to-background/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
 
