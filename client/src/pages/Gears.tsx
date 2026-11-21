@@ -29,6 +29,9 @@ import {
   Award,
 } from "lucide-react";
 import heroImg from "@assets/IMG_4698_1795293232534.png";
+import givingTuesdayImg from "@assets/IMG_4696_1795293599981.png";
+
+const givingTuesdayUrl = "https://www.zeffy.com/en-US/donation-form/giving-tuesday-2026-give-a-student-the-gears-to-succeed";
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 
@@ -306,7 +309,7 @@ export default function Gears() {
                   Support Foundation
                 </Button>
               </a>
-              <a href="https://www.zeffy.com/en-US/donation-form/gears-foundation" target="_blank" rel="noopener noreferrer">
+              <a href={givingTuesdayUrl} target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="w-full" data-testid="button-hero-giving-tuesday">
                   Giving Tuesday
                 </Button>
@@ -324,6 +327,27 @@ export default function Gears() {
             <div className="w-1 h-2 bg-muted-foreground/50 rounded-full" />
           </div>
         </motion.div>
+      </section>
+
+      <section className="section-padding bg-muted/30" aria-labelledby="giving-tuesday-title" data-testid="section-giving-tuesday">
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-copper text-sm font-medium uppercase tracking-wider mb-3">December 1, 2026</p>
+          <h2 id="giving-tuesday-title" className="text-3xl md:text-4xl font-serif font-bold mb-4">
+            Give a Student the G.E.A.R.S. to Succeed
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+            This Giving Tuesday, help equip students with the confidence, character, and tools to succeed in school and beyond.
+          </p>
+          <a href={givingTuesdayUrl} target="_blank" rel="noopener noreferrer" aria-label="Support the Giving Tuesday 2026 campaign on Zeffy" className="block rounded-xl overflow-hidden border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+            <img src={givingTuesdayImg} alt="Giving Tuesday, December 1, 2026. Help equip students with the confidence, character, and tools to succeed. One gift. Endless possibilities." className="w-full h-auto" loading="lazy" />
+          </a>
+          <a href={givingTuesdayUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-8">
+            <Button size="lg" data-testid="button-giving-tuesday-campaign">
+              Support Giving Tuesday
+              <Heart className="ml-2 w-4 h-4" />
+            </Button>
+          </a>
+        </div>
       </section>
 
       {/* ── About ── */}
