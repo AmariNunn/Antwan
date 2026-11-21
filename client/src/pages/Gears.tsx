@@ -300,11 +300,11 @@ export default function Gears() {
                 Become a Partner
               </Button>
             </Link>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" data-testid="button-hero-sponsor">
-                Sponsor a Student
+            <a href="https://www.zeffy.com/en-US/donation-form/gears-foundation" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" data-testid="button-hero-support">
+                Support Foundation
               </Button>
-            </Link>
+            </a>
           </motion.div>
         </div>
 
