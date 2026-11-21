@@ -28,7 +28,7 @@ import {
   Clock,
   Award,
 } from "lucide-react";
-import heroImg from "@assets/Antwon_Harris_009_1769039738636.JPEG";
+import heroImg from "@assets/IMG_4698_1795293232534.png";
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 
