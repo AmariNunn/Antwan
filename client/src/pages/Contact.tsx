@@ -31,14 +31,29 @@ import headerImg from "@assets/targeted_element_1769040840361.png";
 
 const featuredLinks = [
   {
-    title: "Harris hard at work",
-    source: "RR Star",
-    href: "https://www.rrstar.com/sports/20160628/womens-college-hoops-antwon-harris-hard-at-work-for-highland",
+    title: "Distinguished Alumni Recognition",
+    source: "Highland Community College",
+    href: "https://highland.edu/news/highland-community-college-foundation-recognizes-distinguished-alumni-4/",
   },
   {
     title: "NJCAA Hall Of Fame",
-    source: "Freeport News Network",
-    href: "https://www.freeportnewsnetwork.com/top-stories/former-hcc-basketball-player-inducted-to-njcaa-region-iv-hall-of-fame/",
+    source: "Highland Community College",
+    href: "https://highland.edu/archived-content/former-hcc-basketball-player-inducted-to-njcaa-region-iv-hall-of-fame/",
+  },
+  {
+    title: "Meet Antwon Harris",
+    source: "CanvasRebel",
+    href: "https://canvasrebel.com/meet-antwon-harris/",
+  },
+  {
+    title: "Life & Work with Antwon Harris",
+    source: "VoyageATL",
+    href: "https://voyageatl.com/interview/life-work-with-antwon-harris-of-nationwide/",
+  },
+  {
+    title: "Alumni Spotlight: Antwon Harris",
+    source: "The Johnsonian",
+    href: "https://mytjnow.com/2021/11/10/alumni-spotlight-antwon-harris/",
   },
   {
     title: "Never Surrender",
