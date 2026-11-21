@@ -1,0 +1,1 @@
+- [Uploaded assets and publishing](uploaded-assets.md) — new uploads are globally Git-ignored; production images need app-owned asset copies.

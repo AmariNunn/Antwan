@@ -28,8 +28,8 @@ import {
   Clock,
   Award,
 } from "lucide-react";
-import heroImg from "@assets/IMG_4698_1795293232534.png";
-import givingTuesdayImg from "@assets/IMG_4696_1795293599981.png";
+import heroImg from "@/assets/gears-foundation-hero.webp";
+import givingTuesdayImg from "@/assets/giving-tuesday-2026.webp";
 
 const givingTuesdayUrl = "https://www.zeffy.com/en-US/donation-form/giving-tuesday-2026-give-a-student-the-gears-to-succeed";
 
